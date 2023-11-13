@@ -1,0 +1,14 @@
+{
+  "name": "com.blueoyster.json-persistence-unity",
+  "version": "1.0.0",
+  "description": "Simple json persistence for Unity.",
+  "displayName": "json-persistence-unity",
+  "author": {
+    "name": "Justin Awrey",
+    "email": "justin@justinawrey.com",
+    "url": "https://justinawrey.com"
+  },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
+  }
+}
