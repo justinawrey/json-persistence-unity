@@ -10,7 +10,7 @@ public static class JsonPersistence
     return Path.Combine(Application.persistentDataPath, relativePath);
   }
 
-  public async static Task PersistJson<T>(T item, string relativePath)
+  public static Task PersistJson<T>(T item, string relativePath)
   {
     string json = JsonConvert.SerializeObject(item);
     return File.WriteAllTextAsync(GetPersistencePath(relativePath), json);
