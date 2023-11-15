@@ -3,22 +3,25 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public static class JsonPersistence
+namespace Persistence
 {
-  private static string GetPersistencePath(string relativePath)
+  public static class JsonPersistence
   {
-    return Path.Combine(Application.persistentDataPath, relativePath);
-  }
+    private static string GetPersistencePath(string relativePath)
+    {
+      return Path.Combine(Application.persistentDataPath, relativePath);
+    }
 
-  public static Task PersistJson<T>(T item, string relativePath)
-  {
-    string json = JsonConvert.SerializeObject(item);
-    return File.WriteAllTextAsync(GetPersistencePath(relativePath), json);
-  }
+    public static Task PersistJson<T>(T item, string relativePath)
+    {
+      string json = JsonConvert.SerializeObject(item);
+      return File.WriteAllTextAsync(GetPersistencePath(relativePath), json);
+    }
 
-  public async static Task<T> FromJson<T>(string relativePath)
-  {
-    string json = await File.ReadAllTextAsync(GetPersistencePath(relativePath));
-    return JsonConvert.DeserializeObject<T>(json);
+    public async static Task<T> FromJson<T>(string relativePath)
+    {
+      string json = await File.ReadAllTextAsync(GetPersistencePath(relativePath));
+      return JsonConvert.DeserializeObject<T>(json);
+    }
   }
 }
