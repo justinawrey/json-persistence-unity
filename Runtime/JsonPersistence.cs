@@ -23,5 +23,9 @@ namespace Persistence
       string json = await File.ReadAllTextAsync(GetPersistencePath(relativePath));
       return JsonConvert.DeserializeObject<T>(json);
     }
+
+    public static bool JsonExists(string relativePath) {
+      return File.Exists(GetPersistencePath(relativePath));
+    }
   }
 }
