@@ -28,5 +28,15 @@ namespace Persistence
     {
       return File.Exists(GetPersistencePath(relativePath));
     }
+
+    public static void DeleteJson(string relativePath)
+    {
+      if (!JsonExists(relativePath))
+      {
+        return;
+      }
+
+      File.Delete(GetPersistencePath(relativePath));
+    }
   }
 }
