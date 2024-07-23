@@ -12,16 +12,23 @@ namespace Persistence
             return Path.Combine(Application.persistentDataPath, relativePath);
         }
 
-        public static Task PersistJson<T>(T item, string relativePath)
+        public static Task PersistJson<T>(
+            T item,
+            string relativePath,
+            params JsonConverter[] converters
+        )
         {
-            string json = JsonConvert.SerializeObject(item);
+            string json = JsonConvert.SerializeObject(item, converters);
             return File.WriteAllTextAsync(GetPersistencePath(relativePath), json);
         }
 
-        public static async Task<T> FromJson<T>(string relativePath)
+        public static async Task<T> FromJson<T>(
+            string relativePath,
+            params JsonConverter[] converters
+        )
         {
             string json = await File.ReadAllTextAsync(GetPersistencePath(relativePath));
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(json, converters);
         }
 
         public static bool JsonExists(string relativePath)
