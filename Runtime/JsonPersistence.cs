@@ -7,7 +7,7 @@ namespace Persistence
 {
     public static class JsonPersistence
     {
-        private static string GetPersistencePath(string relativePath)
+        public static string GetPersistencePath(string relativePath)
         {
             return Path.Combine(Application.persistentDataPath, relativePath);
         }
