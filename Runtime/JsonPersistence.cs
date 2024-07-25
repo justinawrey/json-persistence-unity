@@ -7,6 +7,11 @@ namespace Persistence
 {
     public static class JsonPersistence
     {
+        private static Task<string> ReadFromFile(string relativePath)
+        {
+            return File.ReadAllTextAsync(GetPersistencePath(relativePath));
+        }
+
         public static string GetPersistencePath(string relativePath)
         {
             return Path.Combine(Application.persistentDataPath, relativePath);
@@ -24,11 +29,18 @@ namespace Persistence
 
         public static async Task<T> FromJson<T>(
             string relativePath,
+            JsonSerializerSettings settings
+        )
+        {
+            return JsonConvert.DeserializeObject<T>(await ReadFromFile(relativePath), settings);
+        }
+
+        public static async Task<T> FromJson<T>(
+            string relativePath,
             params JsonConverter[] converters
         )
         {
-            string json = await File.ReadAllTextAsync(GetPersistencePath(relativePath));
-            return JsonConvert.DeserializeObject<T>(json, converters);
+            return JsonConvert.DeserializeObject<T>(await ReadFromFile(relativePath), converters);
         }
 
         public static bool JsonExists(string relativePath)
